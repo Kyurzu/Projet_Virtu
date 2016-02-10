@@ -1,0 +1,11 @@
+http://homeserver-diy.net/wiki/index.php?title=Virtualisation_avec_KVM_via_libvirt
+
+https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Virtualization/chap-Virtualization-Managing_guests_with_virsh.html
+
+https://access.redhat.com/documentation/fr-FR/Red_Hat_Enterprise_Linux/5/html/Virtualization/index.html
+
+http://doc.fedora-fr.org/wiki/Virtualisation_:_KVM,_Qemu,_libvirt_en_images
+
+virt-install --import --vcpus=1  --disk path=/srv/vms/Fedora12.img --os-type linux --os-variant fedora11 --ram 512 --name Fedora12
+
+sudo virt-install --vcpus=1 --ram=512 --name=debian --file=/home/mebou/Documents/OSS/projet/img/debian.debian --cdrom=/home/mebou/Documents/OSS/projet/iso/debian-8.2.0-amd64-netinst.iso --hvm --vnc --network network=default
