@@ -1,7 +1,0 @@
-Installation nuxeo
-1) wget -q -O- http://apt.nuxeo.org/nuxeo.key | sudo apt-key add -
-2) sudo add-apt-repository "deb http://apt.nuxeo.org/ $(lsb_release -cs) releases"
-3) sudo add-apt-repository "deb http://apt.nuxeo.org/ $(lsb_release -cs) fasttracks"
-4) sudo apt-get update
-5) sudo apt-get install nuxeo
-// configurer les paramatres
