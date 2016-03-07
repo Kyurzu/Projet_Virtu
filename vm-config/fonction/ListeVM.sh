@@ -1,13 +1,13 @@
 #!/bin/sh
 
-listVM()
+listVM_General()
 {
 
-virsh list -all
+virsh list --all
 
-echo Entrez le nom de la VM pour voir son détail:
-read nom_vm
-
-virsh dominfo $nom_vm | grep Nam | grep State | grep CPU\(s\) | grep Max\ memory | grep Used\ memory | grep Autostart
-
+}
+listVM_Detail()
+{
+nom_vm=$1
+virsh dominfo $nom_vm | grep '\(Nom\|État\|CPU\|\Mémoire Max\|Mémoire utilisée\|Démarrage automatique\)'
 }

@@ -8,7 +8,7 @@ zone_saisie
 read lire_choix
 
 case $lire_choix in
-1) echo "à faire"
+1) ./page/page_gestion_vm.sh
 ;;
 2) ./page/page_creationVM.sh
 ;;
