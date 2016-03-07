@@ -5,8 +5,7 @@ source ./fonction/Affichage.sh
 tete_de_page
 
 listVM_General
-./page/page_option_vm.sh
-echo "1. detail de la vm"
+echo "1. details de la vm"
 echo "2. creer une snapshot"
 
 zone_saisie
