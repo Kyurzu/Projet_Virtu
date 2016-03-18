@@ -12,6 +12,6 @@ case $lire_choix in
 ;;
 2) ./page/page_creationVM.sh
 ;;
-*) echo "réponse non comprise"
+*) echo "Réponse non comprise"
 ;;
 esac
