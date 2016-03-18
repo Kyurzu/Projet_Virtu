@@ -9,7 +9,7 @@ virsh list --all
 listVM_Detail()
 {
 nom_vm=$1
-virsh dominfo $nom_vm | grep '\(Nom\|État\|CPU\|\Mémoire Max\|Mémoire utilisée\|Démarrage automatique\)'
+virsh dominfo $nom_vm | grep '\(Name\|State\|CPU\|\Max memory\|Used memory\|Autostart\)'
 }
 
 Affiche_nom_VM()
