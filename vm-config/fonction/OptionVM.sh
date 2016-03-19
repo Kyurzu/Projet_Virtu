@@ -5,7 +5,7 @@ modif_cpu_VM()
  nombre_cpu=$2
  virsh start $nom_vm
 
- virsh setvcpus --count $nom_vm $nombre_cpu --config
+ virsh setvcpus --count $nombre_cpu $nom_vm --config
  virsh shutdown $nom_vm
 	
 }
