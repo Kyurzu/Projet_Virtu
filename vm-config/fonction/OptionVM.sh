@@ -16,7 +16,7 @@ modif_ram_VM()
  nombre_memoire=$2
 
 virsh start $nom_vm
-virsh setmem $nom_vm ${nombre_memoire}M --config
+virsh setmaxmem $nom_vm ${nombre_memoire}M --config
 virsh shutdown $nom_vm	
 }
 modif_disque_VM()
