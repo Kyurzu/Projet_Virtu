@@ -2,8 +2,20 @@
 
 listVM_General()
 {
+nombreLigne=`virsh list --all | wc -l`
 
-virsh list --all
+indice=3
+id_vm=1
+echo "ID             Name                           State"
+echo "-------------------------------------------------------------------"
+while test $indice != $nombreLigne
+do 
+	echo -n [${id_vm}]   ----
+	virsh list --all | sed -n ${indice}p
+	echo
+	id_vm=$(($id_vm + 1))
+	indice=$(($indice + 1))
+done
 
 }
 listVM_Detail()
