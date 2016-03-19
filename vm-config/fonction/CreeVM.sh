@@ -13,8 +13,8 @@ CreationVM()
         virt-clone --force --original debian8-tpl --name $nom_vm --file ${lien}${nom_vm}
 
         virsh start $nom_vm
-        virsh setvcpus --count $nombre_cpu $nom_vm
+        virsh setvcpus --count $nombre_cpu $nom_vm --config
         virsh destroy $nom_vm
-        virsh setmem $nom_vm ${nombre_memoire}M --config
+        virsh setmaxmem $nom_vm ${nombre_memoire}M --config
 
 }

@@ -29,7 +29,7 @@ case $choix_option in
  	modif_cpu_VM $nom_vm $nombre_cpu
  	echo Changement effectue
 ;;
-2) echo Notez la taille de la nouvelle RAM en KiB
+2) echo Notez la taille de la nouvelle RAM en Mb
 	zone_saisie
    read nombre_ram
  	modif_ram_VM $nom_vm $nombre_ram
