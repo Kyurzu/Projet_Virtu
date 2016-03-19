@@ -3,11 +3,10 @@ source ./fonction/ListeVM.sh
 source ./fonction/OptionVM.sh
 source ./fonction/Affichage.sh
 
-echo Nom de la vm
-read nom_vm
 zone_saisie
 
 tete_de_page
+nom_vm=$1
 listVM_Detail $nom_vm
 
 echo

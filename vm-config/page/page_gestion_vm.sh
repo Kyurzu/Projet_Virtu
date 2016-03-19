@@ -5,17 +5,12 @@ source ./fonction/Affichage.sh
 tete_de_page
 
 listVM_General
-echo "1. details de la vm"
-echo "2. creer une snapshot"
+echo "Inscrire l'ID de votre VM"
 
 zone_saisie
-read choix_option
+read choix_id
 
-case $choix_option in
-1) ./page/page_option_vm.sh
-;;
-2) ./page/page_creationVM.sh
-;;
-*) echo "réponse non comprise"
-;;
-esac
+choix_id=$((choix_id + 2))
+
+nom_vm=`virsh list --all | sed -n ${choix_id}p | awk {'print $2'}`
+./page/page_option_vm.sh $nom_vm

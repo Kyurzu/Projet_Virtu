@@ -6,7 +6,7 @@ modif_cpu_VM()
  virsh start $nom_vm
 
  virsh setvcpus --count $nombre_cpu $nom_vm --config
- virsh shutdown $nom_vm
+ virsh destroy $nom_vm
 	
 }
 modif_ram_VM()
