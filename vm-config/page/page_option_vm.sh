@@ -35,7 +35,6 @@ case $choix_option in
  	modif_ram_VM $nom_vm $nombre_ram
  	echo Changement effectue
 ;;
-;;
 3) modif_disque_VM $nom_vm
 ;;
 *) echo "réponse non comprise"
