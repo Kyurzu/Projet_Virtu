@@ -45,9 +45,57 @@ echo "                                                   |"
 #echo "[7] Demarrer automatiquement la VM                 |"
 #echo "[8] Desactiver le demarrage automatique de la VM   |"
 
-echo "---------------------------------------------------+"
 
 sauvegarder_Liste $nom_vm 
+
+etatVM=`sed -n 3p system/SaveList.txt`
+autosaveVM=`sed -n 6p system/SaveList.txt`
+
+if [ "${etatVM}" = "shut" ]
+then
+	if [ $autosaveVM = "disable" ]
+	then
+		echo "[4] Demarrer la VM                                 |"
+		echo "[5] Demarrer automatiquement la VM                 |"
+	fi
+
+fi
+
+if [ "${etatVM}" = "shut" ]
+then
+	if [ $autosaveVM = "enable" ]
+        then
+		echo "[4] Demarrer la VM                                 |"
+		echo "[5] Desactiver le demarrage automatique de la VM   |"
+	fi
+
+fi
+
+if [ "${etatVM}" = "running" ]
+then
+        if [ "${autosaveVM}" = "disable" ]
+        then
+		echo "[4] Arreter la VM normalement                      |"
+		echo "[5] Arreter la VM brutalement                      |"
+		echo "[6] Redemarer la VM                                |"
+
+                echo "[7] Demarrer automatiquement la VM                 |"
+        fi
+fi
+
+if [ "${etatVM}" = "running" ]
+then
+        if [ $autosaveVM = "enable" ]
+        then
+                echo "[4] Arreter la VM normalement                      |"
+                echo "[5] Arreter la VM brutalement                      |"
+                echo "[6] Redemarer la VM                                |"
+
+                echo "[5] Desactiver le demarrage automatique de la VM   |"
+        fi
+
+fi
+echo "---------------------------------------------------+"
 
 
 zone_saisie
@@ -81,3 +129,4 @@ case $choix_option in
 *) echo "réponse non comprise"
 ;;
 esac
+./page/page_option_vm.sh $nom_vm

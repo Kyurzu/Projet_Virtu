@@ -28,7 +28,7 @@ virsh dominfo $nom_vm | grep Name | awk {'print $2'}
 Affiche_CPU_VM()
 {
 nom_vm=$1
-virsh dominfo $nom_vm | grep CPU | awk {'print $2'}
+virsh dominfo $nom_vm | grep "CPU(s)" | awk {'print $2'}
 }
 
 Affiche_state_VM()
@@ -58,11 +58,11 @@ nom_vm=$1
 sauvegarder_Liste()
 {
 	nom_vm=$1
-	virsh dominfo $nom_vm | grep Name | awk {'print $2'} > system/lien.txt
-	virsh dominfo $nom_vm | grep CPU | awk {'print $2'} >> system/lien.txt
-	virsh dominfo $nom_vm | grep State | awk {'print $2,$3'} >> system/lien.txt
-	virsh dominfo $nom_vm | grep "Used memory" | awk {'print $3'} >> system/lien.txt
-	virsh dominfo $nom_vm | grep "Max memory" | awk {'print $3'} >> system/lien.txt
-	virsh dominfo $nom_vm | grep Autostart | awk {'print $2'} >> system/lien.txt
+	virsh dominfo $nom_vm | grep Name | awk {'print $2'} > system/SaveList.txt
+	virsh dominfo $nom_vm | grep "CPU(s)" | awk {'print $2'} >> system/SaveList.txt
+	virsh dominfo $nom_vm | grep State | awk {'print $2'} >> system/SaveList.txt
+	virsh dominfo $nom_vm | grep "Used memory" | awk {'print $3'} >> system/SaveList.txt
+	virsh dominfo $nom_vm | grep "Max memory" | awk {'print $3'} >> system/SaveList.txt
+	virsh dominfo $nom_vm | grep Autostart | awk {'print $2'} >> system/SaveList.txt
 
 }
