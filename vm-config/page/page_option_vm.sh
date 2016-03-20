@@ -11,9 +11,9 @@ nom_vm=$1
 echo
 echo
 echo    "            ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
-echo -n "               Nom de la vm :  " 
+echo -n "             Nom de la vm : " 
 Affiche_nom_VM $nom_vm
-echo    "            ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
+echo    "            ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
 echo
 echo -n "Nombre de CPU      : "
 Affiche_CPU_VM $nom_vm

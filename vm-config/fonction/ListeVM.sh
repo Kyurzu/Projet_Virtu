@@ -39,17 +39,17 @@ virsh dominfo $nom_vm | grep CPU | awk {'print $2'}
 Affiche_state_VM()
 {
 nom_vm=$1
-virsh dominfo $nom_vm | grep State | awk {'print $2'}
+virsh dominfo $nom_vm | grep State | awk {'print $2,$3'}
 }
 Affiche_memoire_utiliser()
 {
 nom_vm=$1
-virsh dominfo $nom_vm | grep "Used memory" | awk {'print $2'}
+virsh dominfo $nom_vm | grep "Used memory" | awk {'print $3'}
 }
 Affiche_memoire_max()
 {
 nom_vm=$1
-virsh dominfo $nom_vm | grep "Max memory" | awk {'print $2'}
+virsh dominfo $nom_vm | grep "Max memory" | awk {'print $3'}
 }
 Affiche_autostart()
 {
