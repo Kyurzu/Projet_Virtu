@@ -51,12 +51,15 @@ sauvegarder_Liste $nom_vm
 etatVM=`sed -n 3p system/SaveList.txt`
 autosaveVM=`sed -n 6p system/SaveList.txt`
 
+combinaisonEtatVM=0
+
 if [ "${etatVM}" = "shut" ]
 then
 	if [ $autosaveVM = "disable" ]
 	then
 		echo "[4] Demarrer la VM                                 |"
 		echo "[5] Demarrer automatiquement la VM                 |"
+		$combinaisonEtatVM=1
 	fi
 
 fi
@@ -67,6 +70,7 @@ then
         then
 		echo "[4] Demarrer la VM                                 |"
 		echo "[5] Desactiver le demarrage automatique de la VM   |"
+		$combinaisonEtatVM=2
 	fi
 
 fi
@@ -75,11 +79,12 @@ if [ "${etatVM}" = "running" ]
 then
         if [ "${autosaveVM}" = "disable" ]
         then
-		echo "[4] Arreter la VM normalement                      |"
-		echo "[5] Arreter la VM brutalement                      |"
+		echo "[4] Arreter la VM (douce)                          |"
+		echo "[5] Arreter la VM (force)                          |"
 		echo "[6] Redemarer la VM                                |"
 
-                echo "[7] Demarrer automatiquement la VM                 |"
+        echo "[7] Demarrer automatiquement la VM                 |"
+        $combinaisonEtatVM=3
         fi
 fi
 
@@ -91,7 +96,8 @@ then
                 echo "[5] Arreter la VM brutalement                      |"
                 echo "[6] Redemarer la VM                                |"
 
-                echo "[5] Desactiver le demarrage automatique de la VM   |"
+                echo "[7] Desactiver le demarrage automatique de la VM   |"
+                $combinaisonEtatVM=4
         fi
 
 fi
@@ -114,19 +120,63 @@ case $choix_option in
  	modif_ram_VM $nom_vm $nombre_ram
  	echo Changement effectue
 ;;
-3) modif_disque_VM $nom_vm
-;;
-4) etatActif $nom_vm
-;;
-5) etatArret_douce $nom_vm
-;;
-6) etatArret_brutal $nom_vm
-;;
-7) etatAutostart $nom_vm
-;;
-8) desactiveEtatAutostart $nom_vm
-;;
 *) echo "réponse non comprise"
 ;;
 esac
+
+if [ $combinaisonEtatVM eq 1 ]
+then
+	case $choix_option in
+	4) etatActif $nom_vm
+	;;
+	5) etatAutostart $nom_vm
+	;;
+	*) echo "réponse non comprise"
+	;;
+esac
+
+
+elif [ $combinaisonEtatVM eq 2 ]
+then
+	case $choix_option in
+	4) etatActif $nom_vm
+	;;
+	5) desactiveEtatAutostart $nom_vm
+	;;
+	*) echo "réponse non comprise"
+	;;
+esac
+
+elif [ $combinaisonEtatVM eq 3 ]
+then
+	case $choix_option in
+	4) etatArret_douce $nom_vm
+	;;
+	5) etatArret_brutal $nom_vm
+	;;
+	6) etatReboot $nom_vm 
+	;;
+	7) etatAutostart $nom_vm
+	;;
+	*) echo "réponse non comprise"
+	;;
+esac
+
+elif [ $combinaisonEtatVM eq 4 ]
+then
+	case $choix_option in
+	4) etatArret_douce $nom_vm
+	;;
+	5) etatArret_brutal $nom_vm
+	;;
+	6) etatReboot $nom_vm 
+	;;
+	7) desactiveEtatAutostart $nom_vm
+	;;
+	*) echo "réponse non comprise"
+	;;
+esac
+
+fi
+
 ./page/page_option_vm.sh $nom_vm

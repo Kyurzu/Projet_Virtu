@@ -19,6 +19,12 @@ etatArret_brutal()
 
 }
 
+etatReboot()
+{
+	nom_vm=$1
+	virsh reboot $nom_vm
+}
+
 etatAutostart()
 {
 	nom_vm=$1
