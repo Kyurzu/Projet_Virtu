@@ -6,7 +6,7 @@ nombreLigne=`virsh list --all | wc -l`
 
 indice=3
 id_vm=1
-echo "ID             Name                           State"
+echo "ID             Nom                           Etat"
 echo "-------------------------------------------------------------------"
 while test $indice != $nombreLigne
 do 

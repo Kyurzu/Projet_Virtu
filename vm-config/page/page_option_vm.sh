@@ -35,8 +35,8 @@ echo "           Modification de la VM                   |"
 echo "                                                   |"
 echo "[1] Modifier CPU                                   |" 
 echo "[2] Modifier RAM                                   |" 
-echo "[3] Modifier disque                                |                         [9] Option snapshot VM"
-echo "----------------------------------------------------                         [10] Option supression VM"                          
+echo "[3] Modifier disque                                |                         [10] Option snapshot VM"
+echo "----------------------------------------------------                         [20] Option supression VM"                          
 echo "           Changer l'état de la VM                 |"
 echo "                                                   |"
 #echo "[4] Demarrer la VM                                 |"
@@ -118,34 +118,28 @@ case $choix_option in
  	modif_ram_VM $nom_vm $nombre_ram
  	echo Changement effectue
 ;;
-*) echo "réponse non comprise"
-;;
 esac
 
-if [ $combinaisonEtatVM eq 1 ]
+if [ $combinaisonEtatVM -eq 1 ]
 then
 	case $choix_option in
 	4) etatActif $nom_vm
 	;;
 	5) etatAutostart $nom_vm
 	;;
-	*) echo "réponse non comprise"
-	;;
 esac
 
 
-elif [ $combinaisonEtatVM eq 2 ]
+elif [ $combinaisonEtatVM -eq 2 ]
 then
 	case $choix_option in
 	4) etatActif $nom_vm
 	;;
 	5) desactiveEtatAutostart $nom_vm
 	;;
-	*) echo "réponse non comprise"
-	;;
 esac
 
-elif [ $combinaisonEtatVM eq 3 ]
+elif [ $combinaisonEtatVM -eq 3 ]
 then
 	case $choix_option in
 	4) etatArret_douce $nom_vm
@@ -156,11 +150,9 @@ then
 	;;
 	7) etatAutostart $nom_vm
 	;;
-	*) echo "réponse non comprise"
-	;;
 esac
 
-elif [ $combinaisonEtatVM eq 4 ]
+elif [ $combinaisonEtatVM -eq 4 ]
 then
 	case $choix_option in
 	4) etatArret_douce $nom_vm
@@ -171,10 +163,16 @@ then
 	;;
 	7) desactiveEtatAutostart $nom_vm
 	;;
-	*) echo "réponse non comprise"
-	;;
 esac
-
 fi
 
-./page/page_option_vm.sh $nom_vm
+case $choix_option in
+10) ./page/page_gestion_sauvegarde.sh $nom_vm
+;;
+20) etatArret_brutal $nom_vm
+;;
+*) echo "Reponse non comprise"
+;;
+esac
+
+#./page/page_option_vm.sh $nom_vm
