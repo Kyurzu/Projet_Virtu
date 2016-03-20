@@ -18,11 +18,6 @@ do
 done
 
 }
-listVM_Detail()
-{
-nom_vm=$1
-virsh dominfo $nom_vm | grep '\(Name\|State\|CPU\|\Max memory\|Used memory\|Autostart\)'
-}
 
 Affiche_nom_VM()
 {
@@ -59,4 +54,15 @@ virsh dominfo $nom_vm | grep Autostart | awk {'print $2'}
 Affiche_memoire_disque()
 {
 nom_vm=$1
+}
+sauvegarder_Liste()
+{
+	nom_vm=$1
+	virsh dominfo $nom_vm | grep Name | awk {'print $2'} > system/lien.txt
+	virsh dominfo $nom_vm | grep CPU | awk {'print $2'} >> system/lien.txt
+	virsh dominfo $nom_vm | grep State | awk {'print $2,$3'} >> system/lien.txt
+	virsh dominfo $nom_vm | grep "Used memory" | awk {'print $3'} >> system/lien.txt
+	virsh dominfo $nom_vm | grep "Max memory" | awk {'print $3'} >> system/lien.txt
+	virsh dominfo $nom_vm | grep Autostart | awk {'print $2'} >> system/lien.txt
+
 }

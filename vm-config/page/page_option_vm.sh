@@ -13,17 +13,17 @@ echo
 echo    "            ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
 echo -n "             Nom de la vm : " 
 Affiche_nom_VM $nom_vm
-echo    "            ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
+echo    "            ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
 echo
-echo -n "Nombre de CPU      : "
+echo -n "Nombre de CPU(s)      : "
 Affiche_CPU_VM $nom_vm
-echo -n "Etat de la VM      : "
+echo -n "Etat de la VM         : "
 Affiche_state_VM $nom_vm
-echo -n "Etat demarage auto : "
+echo -n "Etat demarage auto    : "
 Affiche_autostart $nom_vm
-echo -n "Memoire utilisé    : "
+echo -n "Memoire utilisé (Kib) : "
 Affiche_memoire_utiliser $nom_vm
-echo -n "Memoire max        : "
+echo -n "Memoire max (Kib)     : "
 Affiche_memoire_max $nom_vm
 
 
@@ -39,12 +39,16 @@ echo "[3] Modifier disque                                |                      
 echo "----------------------------------------------------                         [10] Option supression VM"                          
 echo "           Changer l'état de la VM                 |"
 echo "                                                   |"
-echo "[4] Demarrer la VM                                 |"
-echo "[5] Arreter la VM normalement                      |"
-echo "[6] Arreter la VM brutalement                      |"
-echo "[7] Demarrer automatiquement la VM                 |"
-echo "[8] Desactiver le demarrage automatique de la VM   |"
+#echo "[4] Demarrer la VM                                 |"
+#echo "[5] Arreter la VM normalement                      |"
+#echo "[6] Arreter la VM brutalement                      |"
+#echo "[7] Demarrer automatiquement la VM                 |"
+#echo "[8] Desactiver le demarrage automatique de la VM   |"
+
 echo "---------------------------------------------------+"
+
+sauvegarder_Liste $nom_vm 
+
 
 zone_saisie
 read choix_option
