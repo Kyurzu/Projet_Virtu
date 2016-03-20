@@ -27,34 +27,34 @@ virsh dominfo $nom_vm | grep '\(Name\|State\|CPU\|\Max memory\|Used memory\|Auto
 Affiche_nom_VM()
 {
 nom_vm=$1
-virsh dominfo $nom_vm | grep Nom
+virsh dominfo $nom_vm | grep Name | awk {'print $2'}
 }
 
 Affiche_CPU_VM()
 {
 nom_vm=$1
-virsh dominfo $nom_vm | grep CPU
+virsh dominfo $nom_vm | grep CPU | awk {'print $2'}
 }
 
 Affiche_state_VM()
 {
 nom_vm=$1
-virsh dominfo $nom_vm | grep État
+virsh dominfo $nom_vm | grep State | awk {'print $2'}
 }
 Affiche_memoire_utiliser()
 {
 nom_vm=$1
-virsh dominfo $nom_vm | grep Mémoire utilisée
+virsh dominfo $nom_vm | grep "Used memory" | awk {'print $2'}
 }
 Affiche_memoire_max()
 {
 nom_vm=$1
-virsh dominfo $nom_vm | grep Mémoire Max
+virsh dominfo $nom_vm | grep "Max memory" | awk {'print $2'}
 }
 Affiche_autostart()
 {
 nom_vm=$1
-virsh dominfo $nom_vm | grep Démarrage automatique
+virsh dominfo $nom_vm | grep Autostart | awk {'print $2'}
 }
 Affiche_memoire_disque()
 {
