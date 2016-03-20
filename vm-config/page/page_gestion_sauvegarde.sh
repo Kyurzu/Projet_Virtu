@@ -3,7 +3,7 @@ source ./fonction/SauvegardeVM.sh
 nom_vm=$1
 tete_de_page
 liste_Snapshot $nom_vm
-
+echo "Inscrire l'ID du snapshot"
 zone_saisie
 read choix_id
 
@@ -29,3 +29,4 @@ case $choix_option in
 *) echo "Reponse non comprise"
 ;;
 esac
+./page/page_gestion_sauvegarde.sh $nom_vm

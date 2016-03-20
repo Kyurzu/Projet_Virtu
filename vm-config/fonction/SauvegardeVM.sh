@@ -36,7 +36,7 @@ liste_Snapshot()
 	id_vm=1
 
 	nombreLigne=`virsh snapshot-list $nom_vm | wc -l`
-	echo "ID             Date de creation                   Etat"
+	echo "ID       Nom snapshot      Date de creation            Etat"
 	echo "-------------------------------------------------------------------"
 	while test $indice != $nombreLigne
 	do 
