@@ -51,15 +51,13 @@ sauvegarder_Liste $nom_vm
 etatVM=`sed -n 3p system/SaveList.txt`
 autosaveVM=`sed -n 6p system/SaveList.txt`
 
-combinaisonEtatVM=0
-
 if [ "${etatVM}" = "shut" ]
 then
 	if [ $autosaveVM = "disable" ]
 	then
 		echo "[4] Demarrer la VM                                 |"
 		echo "[5] Demarrer automatiquement la VM                 |"
-		$combinaisonEtatVM=1
+		combinaisonEtatVM=1
 	fi
 
 fi
@@ -70,7 +68,7 @@ then
         then
 		echo "[4] Demarrer la VM                                 |"
 		echo "[5] Desactiver le demarrage automatique de la VM   |"
-		$combinaisonEtatVM=2
+		combinaisonEtatVM=2
 	fi
 
 fi
@@ -84,7 +82,7 @@ then
 		echo "[6] Redemarer la VM                                |"
 
         echo "[7] Demarrer automatiquement la VM                 |"
-        $combinaisonEtatVM=3
+        combinaisonEtatVM=3
         fi
 fi
 
@@ -97,7 +95,7 @@ then
                 echo "[6] Redemarer la VM                                |"
 
                 echo "[7] Desactiver le demarrage automatique de la VM   |"
-                $combinaisonEtatVM=4
+                combinaisonEtatVM=4
         fi
 
 fi
