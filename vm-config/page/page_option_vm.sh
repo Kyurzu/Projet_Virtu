@@ -1,6 +1,7 @@
 #!/bin/bash
 source ./fonction/ListeVM.sh
 source ./fonction/OptionVM.sh
+source ./fonction/ChangeEtatVM.sh
 source ./fonction/Affichage.sh
 
 zone_saisie
@@ -12,12 +13,22 @@ listVM_Detail $nom_vm
 echo
 echo
 
-echo "-------------------------------"
-echo "           Option"
-
-echo "1. Modifier CPU" 
-echo "2. Modifier RAM" 
-echo "3. Modifier disque"
+echo "----------------------------------------------------"
+echo "           Modification de la VM"
+echo
+echo "[1] Modifier CPU" 
+echo "[2] Modifier RAM" 
+echo "[3] Modifier disque"
+echo
+echo
+echo "----------------------------------------------------"
+echo "           Changer l'état de la VM"
+echo
+echo "[4] Demarrer la VM"
+echo "[5] Arreter la VM normalement"
+echo "[6] Arreter la VM brutalement"
+echo "[7] Demarrer automatiquement la VM"
+echo "[8] Desactiver le demarrage automatique de la VM"
 read choix_option
 zone_saisie
 
@@ -35,6 +46,16 @@ case $choix_option in
  	echo Changement effectue
 ;;
 3) modif_disque_VM $nom_vm
+;;
+4) etatActif $nom_vm
+;;
+5) etatArret_douce $nom_vm
+;;
+6) etatArret_brutal $nom_vm
+;;
+7) etatAutostart $nom_vm
+;;
+8) desactiveEtatAutostart $nom_vm
 ;;
 *) echo "réponse non comprise"
 ;;

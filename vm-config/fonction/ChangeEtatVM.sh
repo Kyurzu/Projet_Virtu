@@ -1,20 +1,32 @@
 #!/bin/bash
 etatActif()
 {
-	vm=$1
-	virsh start $1
+	nom_vm=$1
+	virsh start $nom_vm
 }
 
 etatArret_douce()
 {
-	vm=$1
-	virsh shutdown $1
+	nom_vm=$1
+	virsh shutdown $nom_vm
 
 }
 
 etatArret_brutal()
 {
-	vm=$1
-	virsh destroy $1
+	nom_vm=$1
+	virsh destroy $nom_vm
 
+}
+
+etatAutostart()
+{
+	nom_vm=$1
+	virsh autostart $nom_vm
+}
+
+desactiveEtatAutostart()
+{
+	nom_vm=$1
+	virsh autostart $nom_vm --disable
 }
