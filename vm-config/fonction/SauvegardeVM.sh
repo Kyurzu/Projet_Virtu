@@ -6,7 +6,7 @@ cree_Snapshot()
 	nom_snapshot=$2
 
 	virsh destroy $nom_vm
-	virsh snapshot-create-as $nom_vm $om_snapshot
+	virsh snapshot-create-as $nom_vm $om_snapshot " "
 }
 
 suprimer_Snapshot()
