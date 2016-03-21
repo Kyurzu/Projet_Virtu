@@ -174,5 +174,5 @@ case $choix_option in
 *) echo "Reponse non comprise"
 ;;
 esac
-
-#./page/page_option_vm.sh $nom_vm
+sleep 3
+./page/page_option_vm.sh $nom_vm
