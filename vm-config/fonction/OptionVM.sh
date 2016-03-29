@@ -22,7 +22,12 @@ modif_disque_VM()
 
 echo Veuillez saisir le nom de la VM
 read choix_vm
+echo Veuillez saisir également le nom du disque à ajouter
+read choix_disk
 
-virsh shutdown $choix_vm
+virsh destroy $choix_vm
+cd /var/lib/libvirt/images/
+qemu-img create -f raw ${choix_disk}.img 1G
+virsh attach-disk $choix_vm --source /var/lib/libvirt/images/${choix_disk}.img --target vdb --persistent
 
 }

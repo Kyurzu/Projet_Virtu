@@ -3,7 +3,7 @@
 supprimerVM()
 {
 
-echo veuillez selectionner la VM à supprimer.
+echo Veuillez selectionner la VM à supprimer.
 read nom_vm
 
 
