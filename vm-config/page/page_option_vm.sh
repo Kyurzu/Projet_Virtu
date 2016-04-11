@@ -3,11 +3,16 @@ source ./fonction/ListeVM.sh
 source ./fonction/OptionVM.sh
 source ./fonction/ChangeEtatVM.sh
 source ./fonction/Affichage.sh
+source ./fonction/supprimerVM.sh
 
 zone_saisie
 
 tete_de_page
+
 nom_vm=$1
+echo
+echo
+echo -e "<== \033[31;1;4;5;7m[0]\033[0m Pour revenir dans Gestion des VMs"
 echo
 echo
 echo    "            ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
@@ -25,25 +30,26 @@ echo -n "Memoire utilisé (Kib) : "
 Affiche_memoire_utiliser $nom_vm
 echo -n "Memoire max (Kib)     : "
 Affiche_memoire_max $nom_vm
+echo -n "Memoire soap          : "
+Affiche_memoire_disque $nom_vm
+echo -n "Adresse IP            : "
+Affiche_IP $nom_vm
 
 
 echo
 echo
+echo -e "\033[31;1;4;5;7m[10]\033[0m Option snapshot VM"
+echo -e "\033[31;1;4;5;7m[20]\033[0m Supprimer la VM"
 
-echo "---------------------------------------------------+"
-echo "           Modification de la VM                   |"
-echo "                                                   |"
-echo "[1] Modifier CPU                                   |" 
-echo "[2] Modifier RAM                                   |" 
-echo "[3] Modifier disque                                |                         [10] Option snapshot VM"
-echo "----------------------------------------------------                         [20] Option supression VM"                          
-echo "           Changer l'état de la VM                 |"
-echo "                                                   |"
-#echo "[4] Demarrer la VM                                 |"
-#echo "[5] Arreter la VM normalement                      |"
-#echo "[6] Arreter la VM brutalement                      |"
-#echo "[7] Demarrer automatiquement la VM                 |"
-#echo "[8] Desactiver le demarrage automatique de la VM   |"
+echo    "---------------------------------------------------+"
+echo    "           Modification de la VM                   |"
+echo    "                                                   |"
+echo -e "\033[31;1;4;5;7m[1]\033[0m Modifier CPU                                   |"
+echo -e "\033[31;1;4;5;7m[2]\033[0m Modifier RAM                                   |"
+echo -e "\033[31;1;4;5;7m[3]\033[0m Modifier disque                                |"
+echo -e "---------------------------------------------------|"                          
+echo    "           Changer l'état de la VM                 |"
+echo    "                                                   |"
 
 
 sauvegarder_Liste $nom_vm 
@@ -55,8 +61,8 @@ if [ "${etatVM}" = "shut" ]
 then
 	if [ $autosaveVM = "disable" ]
 	then
-		echo "[4] Demarrer la VM                                 |"
-		echo "[5] Demarrer automatiquement la VM                 |"
+		echo -e "\033[31;1;4;5;7m[4]\033[0m Demarrer la VM                                 |"
+		echo -e "\033[31;1;4;5;7m[5]\033[0m Demarrer automatiquement la VM                 |"
 		combinaisonEtatVM=1
 	fi
 
@@ -66,8 +72,8 @@ if [ "${etatVM}" = "shut" ]
 then
 	if [ $autosaveVM = "enable" ]
         then
-		echo "[4] Demarrer la VM                                 |"
-		echo "[5] Desactiver le demarrage automatique de la VM   |"
+		echo -e "\033[31;1;4;5;7m[4]\033[0m Demarrer la VM                                 |"
+		echo -e "\033[31;1;4;5;7m[5]\033[0m Desactiver le demarrage automatique de la VM   |"
 		combinaisonEtatVM=2
 	fi
 
@@ -77,11 +83,11 @@ if [ "${etatVM}" = "running" ]
 then
         if [ "${autosaveVM}" = "disable" ]
         then
-		echo "[4] Arreter la VM (douce)                          |"
-		echo "[5] Arreter la VM (force)                          |"
-		echo "[6] Redemarer la VM                                |"
+		echo -e "\033[31;1;4;5;7m[4]\033[0m Arreter la VM (douce)                          |"
+		echo -e "\033[31;1;4;5;7m[5]\033[0m Arreter la VM (force)                          |"
+		echo -e "\033[31;1;4;5;7m[6]\033[0m Redemarer la VM                                |"
 
-        echo "[7] Demarrer automatiquement la VM                 |"
+        echo -e "\033[31;1;4;5;7m[7]\033[0m Demarrer automatiquement la VM                 |"
         combinaisonEtatVM=3
         fi
 fi
@@ -90,11 +96,11 @@ if [ "${etatVM}" = "running" ]
 then
         if [ $autosaveVM = "enable" ]
         then
-                echo "[4] Arreter la VM normalement                      |"
-                echo "[5] Arreter la VM brutalement                      |"
-                echo "[6] Redemarer la VM                                |"
+                echo -e "\033[31;1;4;5;7m[4]\033[0m Arreter la VM (douce)                          |"
+                echo -e "\033[31;1;4;5;7m[5]\033[0m Arreter la VM (force)                          |"
+                echo -e "\033[31;1;4;5;7m[6]\033[0m Redemarer la VM                                |"
 
-                echo "[7] Desactiver le demarrage automatique de la VM   |"
+                echo -e "\033[31;1;4;5;7m[7]\033[0m Desactiver le demarrage automatique de la VM   |"
                 combinaisonEtatVM=4
         fi
 
@@ -117,6 +123,14 @@ case $choix_option in
    read nombre_ram
  	modif_ram_VM $nom_vm $nombre_ram
  	echo Changement effectue
+;;
+3) echo "Veuillez saisir le nom du disque à ajouter"
+   zone_saisie
+   read nom_disk
+   echo "Veuillez saisir la taille du disque"
+   zone_saisie
+   read taille_disk
+   modif_disque_VM $nom_vm $nom_disk $taille_disk
 ;;
 esac
 
@@ -167,9 +181,36 @@ esac
 fi
 
 case $choix_option in
+0) ./page/page_gestion_vm.sh
+	exit 0
+;;
+1)
+;;
+2)
+;;
+3)
+;;
+4)
+;;
+5)
+;;
+6)
+;;
+7)
+;;
 10) ./page/page_gestion_sauvegarde.sh $nom_vm
 ;;
-20) etatArret_brutal $nom_vm
+20) echo "Etes vous sur de vouloir supprimer cette vm ?"
+	echo -e "\033[31;1;4;5;7m[1]\033[0m OUI"
+	echo -e "\033[31;1;4;5;7m[2]\033[0m NON"
+	zone_saisie
+	read confirmationSuppr
+	if [ $confirmationSuppr -eq 1 ]
+		then
+        supprimerVM $nom_vm
+        sleep 3
+		./page/page_gestion_vm.sh
+		fi
 ;;
 *) echo "Reponse non comprise"
 ;;

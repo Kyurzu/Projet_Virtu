@@ -7,9 +7,7 @@ CreationVM()
         taille_disque=$4
         
         lien=`sed -n 1p system/lien.txt`
-
 	qemu-img create -f qcow2 -o preallocation=metadata ${lien}${nom_vm}.qcow2 ${taille_disque}M
-        echo -->disque dur virtuelle créer
         virt-clone --force --original debian8-tpl --name $nom_vm --file ${lien}${nom_vm}
 
         virsh start $nom_vm

@@ -36,13 +36,13 @@ liste_Snapshot()
 	id_vm=1
 
 	nombreLigne=`virsh snapshot-list $nom_vm | wc -l`
-	echo "ID       Nom snapshot      Date de creation            Etat"
+	echo "ID    Nom snapshot              Date de creation          Etat"
 	echo "-------------------------------------------------------------------"
 	while test $indice != $nombreLigne
 	do 
-	echo -n [${id_vm}]   ----
+	echo -n -e "\033[31;1;4;5;7m[${id_vm}]\033[0m   ----"
 	virsh snapshot-list $nom_vm | sed -n ${indice}p
-	echo
+	echo "-------------------------------------------------------------------"
 	id_vm=$(($id_vm + 1))
 	indice=$(($indice + 1))
 	done

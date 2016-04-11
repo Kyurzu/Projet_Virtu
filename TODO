@@ -1,14 +1,16 @@
-Travail effectué 50%
-
 TODO:
 
+Partie 1: Fini à 85%
 
-OptionVM.sh -> Manque que l'ajout d'un disque
-Sauvegarde.sh
+Gestion des erreurs:
+	-Bug en se baladant et en faisant des retours avec "0"
 
+--------------------------------------------
 
------------------------------------
+Partie 2: Fini à 40%
 
-Ajout des différentes fonctions au menu.
-Faire divers test pour tester chaque fonction indépendemment des autres.
-Faire divers test de l'intégralité du projet.
+Faire la partie deux du projet.
+	-Script d'installation: OK
+	-Installation automatique: KO
+	-Réfléchir sur la pertinence que chaque VM ai le script même si Nuxeo sera jamais installé dessus.
+		-Dans le cas où ce n'est pas pertinent créer une autre VM: KO
