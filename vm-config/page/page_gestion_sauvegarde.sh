@@ -1,9 +1,13 @@
+#!/bin/bash
+
+#Utilise les scripts ci dessous
+
 source ./fonction/Affichage.sh
 source ./fonction/SauvegardeVM.sh
 nom_vm=$1
 tete_de_page
 echo
-echo -e "<== \033[31;1;4;5;7m[0]\033[0m Pour revenir dans options de la VM :"$nom_vm
+echo -e "<== \033[31;1;4;5;7m[0]\033[0m Pour revenir dans options de la VM "$nom_vm
 echo
 echo
 echo
@@ -14,6 +18,7 @@ echo -e "\033[31;1;4;5;7m[2]\033[0m Creer une nouvelle snapshot pour la vm "$nom
 zone_saisie
 read choix_gestion
 
+#Créé un menu pour que l'utilisitateur utilise le script de manière intuitif
 case $choix_gestion in
 	0)  
 	   ./page/page_option_vm.sh $nom_vm 
@@ -45,7 +50,7 @@ case $choix_gestion in
 		esac
 	;;
 	2)
-	echo "Ecrire le nom de votre nouvelle snapshot :"
+	echo "Ecrivez le nom de votre nouvelle snapshot :"
 	zone_saisie
 	read nom_snapshot
 	cree_Snapshot $nom_vm $nom_snapshot
@@ -53,5 +58,5 @@ case $choix_gestion in
 	*) echo "reponse non comprise"
 	;;
 esac
-sleep 3
+sleep 1
 ./page/page_gestion_sauvegarde.sh $nom_vm

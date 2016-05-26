@@ -1,16 +1,13 @@
 TODO:
 
-Partie 1: Fini à 85%
-
-Gestion des erreurs:
-	-Bug en se baladant et en faisant des retours avec "0"
+Partie 1: Fini à 100%
 
 --------------------------------------------
 
-Partie 2: Fini à 40%
+Partie 2: Fini à 80%
 
 Faire la partie deux du projet.
 	-Script d'installation: OK
-	-Installation automatique: KO
+	-Installation automatique: OK
 	-Réfléchir sur la pertinence que chaque VM ai le script même si Nuxeo sera jamais installé dessus.
 		-Dans le cas où ce n'est pas pertinent créer une autre VM: KO
