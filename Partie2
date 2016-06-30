@@ -1,0 +1,12 @@
+wget -q http://apt.nuxeo.org/nuxeo.key | apt-key add -
+add-apt-repository "deb http://apt.nuxeo.org/ $(lsb_release -cs) releases"
+add-apt-repository "deb http://apt.nuxeo.org/ $(lsb_release -cs) fasttracks"
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get install --force-yes openjdk-8-jdk nuxeo << E0F
+yes
+yes
+yes
+E0F
+service nuxeo start && service nuxeo status
+
