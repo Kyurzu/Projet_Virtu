@@ -7,7 +7,7 @@ cree_Snapshot()
 	nom_vm=$1
 	nom_snapshot=$2
 
-	virsh destroy $nom_vm >> system/log_vm/Log_${nom_vm}.log2>&1
+	#virsh destroy $nom_vm >> system/log_vm/Log_${nom_vm}.log2>&1 #modif à chaud
 	dateLog $nom_vm
 	virsh snapshot-create-as $nom_vm $nom_snapshot " " >> system/log_vm/Log_${nom_vm}.log
 }
@@ -18,7 +18,7 @@ suprimer_Snapshot()
 	nom_vm=$1
 	nom_snapshot=$2
 
-	virsh destroy $nom_vm >> system/log_vm/Log_${nom_vm}.log2>&1
+	#virsh destroy $nom_vm >> system/log_vm/Log_${nom_vm}.log2>&1  #modif à chaud
 	dateLog $nom_vm
 	virsh snapshot-delete $nom_vm $nom_snapshot >> system/log_vm/Log_${nom_vm}.log
 
@@ -30,7 +30,7 @@ revert_Snapshot()
 	nom_vm=$1
 	nom_snapshot=$2
 
-	virsh destroy $nom_vm >> system/log_vm/Log_${nom_vm}.log2>&1
+	#virsh destroy $nom_vm >> system/log_vm/Log_${nom_vm}.log2>&1  #modif à chaud
 	dateLog $nom_vm
 	virsh snapshot-revert $nom_vm $nom_snapshot
 }

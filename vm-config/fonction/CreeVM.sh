@@ -15,7 +15,7 @@ creationImage()
 {
         nom_vm=$1
         taille_disque=$2
-        lien=`sed -n 1p system/lien.txt`
+        lien=$VM_LIEN_IMAGE
         dateLog $nom_vm
         qemu-img create -f qcow2 -o preallocation=metadata ${lien}${nom_vm}.qcow2 ${taille_disque}G >> system/log_vm/Log_${nom_vm}.log
 }
@@ -25,7 +25,7 @@ creationImage()
 creationClone()
 {
        nom_vm=$1
-       lien=`sed -n 1p system/lien.txt`
+       lien=$VM_LIEN_IMAGE
        dateLog $nom_vm
        virt-clone --force --original debian8-tpl --name $nom_vm --file ${lien}${nom_vm} >> system/log_vm/Log_${nom_vm}.log
 }
@@ -63,5 +63,17 @@ suprimerCreationVM ()
 {
         nom_vm=$1
         supprimerVM $nom_vm
+}
+
+erreurCreationVM ()
+{
+  code_retour=$1
+  if [ ${code_retour} -ne 0 ]
+  then
+  echo -e "${Red}Erreur detectée verifiez votre saisie${ResetColor}"
+  suprimerCreationVM $lire_nom_vm
+  sleep 2
+  ./page/page_gestion_vm.sh
+fi
 }
 

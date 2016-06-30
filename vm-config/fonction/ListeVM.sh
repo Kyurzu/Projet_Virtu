@@ -13,8 +13,8 @@ listVM_General()
 	indice=3
 	id_vm=1
 	indiceLigne=$(($indice + 3))
-	echo " ID     Nom            Date de création           Etat"
-	echo "------------------------------------------------------------"
+	echo " ID     Nom            Date de création           Etat           CPU           RAM"
+	echo "---------------------------------------------------------------------------------------------"
 	while test $indice != $nombreLigne
 	do 
 		tput cup $(($indiceLigne + 2)) 1
@@ -22,14 +22,14 @@ listVM_General()
 
 		valeur_NomVM=`virsh list --all | sed -n ${indice}p | awk {'print $2'}`
 
-		if [ "${valeur_NomVM}" = "debian8-tpl" ]
+		if [ "${valeur_NomVM}" = "${VM_TEMPLATE}" ]
 			then
 			echo -e "    ${Yellow}${valeur_NomVM}${ResetColor}"
 
 	else
 		echo -e "    ${valeur_NomVM}"
 	fi
-	if [ ! "${valeur_NomVM}" = "debian8-tpl" ]
+	if [ ! "${valeur_NomVM}" = "${VM_TEMPLATE}" ]
 		then
 		tput cup $(($indiceLigne + 2)) 23
 
@@ -49,7 +49,7 @@ listVM_General()
 			echo  "${Green}Démarrée${ResetColor}"
 		fi
 
-	if [ ! "${valeur_NomVM}" = "debian8-tpl" ]
+	if [ ! "${valeur_NomVM}" = "${VM_TEMPLATE}" ]
 			then
 
 		if [ "${valeur_Etat}" = "shut" ]
@@ -61,8 +61,13 @@ listVM_General()
 			then
 			echo -e "${Yellow}Arrêtée${ResetColor}"
 		fi
-	fi	
-		echo "------------------------------------------------------------"
+	fi
+		tput cup $(($indiceLigne + 2)) 65
+		Affiche_CPU_VM ${valeur_NomVM}
+
+		tput cup $(($indiceLigne + 2)) 79
+		echo `Affiche_memoire_max ${valeur_NomVM}`" Go" 
+	    echo "---------------------------------------------------------------------------------------------"
 		echo
 		indiceLigne=$(($indiceLigne + 2))
 		id_vm=$(($id_vm + 1))
@@ -75,14 +80,14 @@ listVM_General()
 Affiche_nom_VM()
 {
 	nom_vm=$1
-	virsh dominfo $nom_vm | grep Name | awk {'print $2'}
+	echo `virsh dominfo $nom_vm | grep Name | awk {'print $2'}`
 }
 
 #Affiche le nombre de CPU de la VM
 Affiche_CPU_VM()
 {
 	nom_vm=$1
-	virsh dominfo $nom_vm | grep "CPU(s)" | awk {'print $2'}
+	echo `virsh dominfo $nom_vm | grep "CPU(s)" | awk {'print $2'}`
 }
 
 
@@ -90,36 +95,36 @@ Affiche_CPU_VM()
 Affiche_state_VM()
 {
 	nom_vm=$1
-	virsh dominfo $nom_vm | grep State | awk {'print $2,$3'}
+	echo `virsh dominfo $nom_vm | grep State | awk {'print $2,$3'}`
 }
 
 #Affiche la RAM utilisée
 Affiche_memoire_utiliser()
 {
 	nom_vm=$1
-	virsh dominfo $nom_vm | grep "Used memory" | awk {'print $3'}
+	echo `virsh dominfo $nom_vm | grep "Used memory" | awk {'print $3/1024'}`
 }
 
 #Affiche la RAM max
 Affiche_memoire_max()
 {
 	nom_vm=$1
-	virsh dominfo $nom_vm | grep "Max memory" | awk {'print $3'}
+	echo `virsh dominfo $nom_vm | grep "Max memory" | awk {'print $3/1024/1024'}`
 }
 
 #Affiche l'autostart
 Affiche_autostart()
 {
 	nom_vm=$1
-	virsh dominfo $nom_vm | grep Autostart | awk {'print $2'}
+	echo `virsh dominfo $nom_vm | grep Autostart | awk {'print $2'}`
 }
 
 #Affiche la mémoire disuqe
 Affiche_memoire_disque()
 {
 	nom_vm=$1
-	lien=`sed -n 1p system/lien.txt`
-	du -h ${lien}${nom_vm}.qcow2 | awk {'print $1'}
+	lien=$VM_LIEN_IMAGE
+	echo `du -h ${lien}${nom_vm}.qcow2 | awk {'print $1'}`
 
 }
 
@@ -128,21 +133,7 @@ Affiche_IP()
 {
 	 nom_vm=$1
 	 adresse_mac=`virsh dumpxml ${nom_vm} | grep "mac address" | cut -c21-37`
-	 arp -n | grep ${adresse_mac} | awk {'print $1'}
+	 echo `arp -n | grep ${adresse_mac} | awk {'print $1'}`
 	 
-
 }
 
-#Sauvegarde la liste
-sauvegarder_Liste()
-{
-	nom_vm=$1
-	lien=`sed -n 1p system/lien.txt`
-	virsh dominfo $nom_vm | grep Name | awk {'print $2'} > system/SaveList.txt
-	virsh dominfo $nom_vm | grep "CPU(s)" | awk {'print $2'} >> system/SaveList.txt
-	virsh dominfo $nom_vm | grep State | awk {'print $2'} >> system/SaveList.txt
-	virsh dominfo $nom_vm | grep "Used memory" | awk {'print $3'} >> system/SaveList.txt
-	virsh dominfo $nom_vm | grep "Max memory" | awk {'print $3'} >> system/SaveList.txt
-	virsh dominfo $nom_vm | grep Autostart | awk {'print $2'} >> system/SaveList.txt
-	du -h ${lien}${nom_vm}.qcow2 | awk {'print $1'} >> system/SaveList.txt
-}

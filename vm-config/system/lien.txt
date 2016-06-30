@@ -1,1 +1,4 @@
-/var/lib/libvirt/images/
+VM_LIEN_IMAGE=/var/lib/libvirt/images/
+VM_TEMPLATE=debian8-tpl
+export VM_LIEN_IMAGE
+export VM_TEMPLATE

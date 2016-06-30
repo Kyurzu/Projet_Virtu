@@ -9,7 +9,6 @@ source ./fonction/supprimerVM.sh
 source ./fonction/Log.sh
 
 nom_vm=$1
-sauvegarder_Liste $nom_vm
 code_retour=0
 #### Initialisation des variables d'affichage ####
 
@@ -51,13 +50,13 @@ echo -n "Etat de la VM         : "
 Affiche_state_VM $nom_vm
 echo -n "Etat demarage auto    : "
 Affiche_autostart $nom_vm
-echo -n "Memoire utilisé (Kib) : "
+echo -n "Memoire utilisé (Mo)  : "
 Affiche_memoire_utiliser $nom_vm
-echo -n "Memoire max (Kib)     : "
+echo -n "Memoire max (Go)      : "
 Affiche_memoire_max $nom_vm
-echo -n "Memoire swap          : "
+echo -n "Memoire Swap          : "
 Affiche_memoire_disque $nom_vm
-etatVM=`sed -n 3p system/SaveList.txt`
+etatVM="$(Affiche_state_VM $nom_vm)"
 if [ "${etatVM}" = "running" ]
 	then
 echo -n "Adresse IP            : "
@@ -85,10 +84,10 @@ echo    "           Changer l'état de la VM                 |"
 echo    "                                                   |"
  
 
-etatVM=`sed -n 3p system/SaveList.txt`
-autosaveVM=`sed -n 6p system/SaveList.txt`
+etatVM="$(Affiche_state_VM $nom_vm)"
+autosaveVM="$(Affiche_autostart $nom_vm)"
 
-if [ "${etatVM}" = "shut" ]
+if [ "${etatVM}" = "shut off" ]
 then
 	if [ $autosaveVM = "disable" ]
 	then
@@ -290,6 +289,9 @@ esac
 		echo
  		echo "${Green}     ****  Changement effectue  ****${ResetColor}"
     fi
-sleep 2
-
-./page/page_option_vm.sh $nom_vm
+echo -e "Appuyez sur la touche <Entrée> pour continuer ...\c"
+read touche
+case $touche in
+*) ./page/page_option_vm.sh $nom_vm
+	;;
+esac

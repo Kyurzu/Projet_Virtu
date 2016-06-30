@@ -158,53 +158,33 @@ creationFichierLog $lire_nom_vm
 echo -e "Etape 1 : ${Green}Creation de l'image de la vm...${ResetColor}"
 creationImage $lire_nom_vm $lire_taille_disque
 
-code_retour=$?
-if [ ${code_retour} -ne 0 ]
-	then
-	echo -e "${Red}Erreur detectée verifiez votre saisie${ResetColor}"
-	suprimerCreationVM $lire_nom_vm
-	sleep 2
-	./page/page_gestion_vm.sh
-fi
+erreurCreationVM $? $lire_nom_vm
+
 echo
 echo -e "Etape 2 : ${Green}Creation du clone de la vm d'origine...${ResetColor}"
 creationClone $lire_nom_vm
 
-code_retour=$?
-if [ ${code_retour} -ne 0 ]
-	then
-	echo -e "${Red}Erreur detectée verifiez votre saisie${ResetColor}"
-	suprimerCreationVM $lire_nom_vm
-	sleep 2
-	./page/page_gestion_vm.sh
-fi
+erreurCreationVM $? $lire_nom_vm
+
 echo
 echo -e "Etape 3 : ${Green}Configuration du nombres de CPU...${ResetColor}"
 configuration_cpu $lire_nom_vm $lire_nombre_cpu
 
-code_retour=$?
-if [ ${code_retour} -ne 0 ]
-	then
-	echo -e "${Red}Erreur detectée verifiez votre saisie${ResetColor}"
-	suprimerCreationVM $lire_nom_vm
-	sleep 2
-	./page/page_gestion_vm.sh
-fi
+erreurCreationVM $? $lire_nom_vm
+
 echo
 echo -e "Etape 4 : ${Green}Configuration du nombres de RAM...${ResetColor}"
 configuration_ram $lire_nom_vm $lire_nombre_memoire
 
-code_retour=$?
-if [ ${code_retour} -ne 0 ]
-	then
-	echo "${Red}Erreur detectée verifiez votre saisie${ResetColor}"
-	suprimerCreationVM $lire_nom_vm
-	sleep 2
-	./page/page_gestion_vm.sh
-fi
+erreurCreationVM $? $lire_nom_vm
+
 echo
 echo -e "${Green}         *****  VM créée avec succes  *****${ResetColor}"
 config_file_log $lire_nom_vm
-sleep 1
 
-./page/page_gestion_vm.sh
+echo -e "Appuyez sur la touche <Entrée> pour continuer ...\c"
+read touche
+case $touche in
+*) ./page/page_gestion_vm.sh
+	;;
+esac
